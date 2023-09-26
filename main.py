@@ -1,5 +1,5 @@
 import string
-
+from collections import Counter
 text = open('read.txt',encoding='utf-8').read()
 print(text)
 
@@ -44,7 +44,7 @@ stop_word = ["a", "about", "above", "after", "again", "against", "ain't", "all",
              "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves","he", "him", "his", "himself", "she", "her", "hers",
              "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom",
              "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having",
-             "do", "does", "did", "doing",]
+             "do", "does", "did", "doing"]
 
 result_words = [] #empty list
 
@@ -56,3 +56,16 @@ for words in tokenized_words:
 
 
 print(result_words)
+
+Emotions = []  #list of emotions
+with open('emotional_damage.txt','r') as file:
+    for line in file:
+       clean_line = line.replace('\n','').replace(',','').replace("'",'').strip()   #clearing the punctuations
+      #print(clean_line)
+       words, emotion = clean_line.split(':')  # so i am pointing the words with their emotions
+       #print("Word :" + word + "         " + "Emotions :" + emotion)
+       if words in result_words:
+           Emotions.append(emotion)
+print(Emotions)
+w = Counter(Emotions)
+print(w)
